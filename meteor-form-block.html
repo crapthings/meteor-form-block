@@ -1,0 +1,70 @@
+<head>
+  <title>meteor-form-block</title>
+</head>
+
+<!-- shitty body -->
+
+<body>
+
+	<div class="ui-padded">
+		{{> pages}}
+		{{#form formId="pageForm" method="newPage"}}
+			<input type="text" name="title" placeholder="title" class="ui-mgb">
+			<textarea name="content" rows="3" placeholder="content" class="ui-mgb"></textarea>
+		{{/form}}
+	</div>
+
+	<div class="ui-padded">
+		{{> posts}}
+		{{#form formId="postForm" method="newPost"}}
+			<input type="text" name="title" placeholder="title" class="ui-mgb">
+			<textarea name="content" rows="3" placeholder="content" class="ui-mgb"></textarea>
+		{{/form}}
+	</div>
+
+</body>
+
+<!-- a form block can be reused anywhere without binding event again, agian and agian... -->
+
+<template name="form">
+	<form id="{{formId}}">
+		{{> UI.contentBlock}}
+		<input type="submit">
+	</form>
+</template>
+
+<!-- a page template -->
+
+<template name="pages">
+
+	<h3>pages</h3>
+	<div>
+		{{#each find "Pages"}}
+			<h4>{{title}}</h4>
+			<p>{{content}}</p>
+			{{> removeButton method="removePage"}}
+		{{/each}}
+	</div>
+
+</template>
+
+<!-- a post template -->
+
+<template name="posts">
+
+	<h3>posts</h3>
+	<div>
+		{{#each find "Posts"}}
+			<h4>{{title}}</h4>
+			<p>{{content}}</p>
+			{{> removeButton method="removePost"}}
+		{{/each}}
+	</div>
+
+</template>
+
+<!-- an resuable remove button -->
+
+<template name="removeButton">
+	<button>remove</button>
+</template>
